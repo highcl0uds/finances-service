@@ -22,13 +22,13 @@ class WalletServiceTest {
 
     @Test
     void testSetCurrentWalletWithUser() {
-        usersService.createUser("walletuser", "pass");
-        usersService.loginUser("walletuser", "pass");
+        usersService.createUser("WalletServiceTest1", "pass");
+        usersService.loginUser("WalletServiceTest1", "pass");
         walletService.setCurrentWallet();
 
         Wallet wallet = walletService.getCurrentWallet();
         assertNotNull(wallet);
-        assertEquals("walletuser", wallet.getOwner());
+        assertEquals("WalletServiceTest1", wallet.getOwner());
     }
 
     @Test
@@ -41,17 +41,17 @@ class WalletServiceTest {
 
     @Test
     void testMakeTransactionToUserSuccess() {
-        User sender = usersService.createUser("sender1", "pass1");
-        User receiver = usersService.createUser("receiver1", "pass2");
+        User sender = usersService.createUser("WalletServiceTest2", "pass1");
+        User receiver = usersService.createUser("WalletServiceTest3", "pass2");
 
-        usersService.loginUser("sender1", "pass1");
+        usersService.loginUser("WalletServiceTest2", "pass1");
         walletService.setCurrentWallet();
 
         Wallet senderWallet = walletService.getCurrentWallet();
         senderWallet.setBalance(5000);
         walletService.saveWallet(senderWallet);
 
-        Boolean result = walletService.makeTransactionToUser("receiver1", 1000);
+        Boolean result = walletService.makeTransactionToUser("WalletServiceTest3", 1000);
 
         assertTrue(result);
         assertEquals(4000, senderWallet.getBalance());
@@ -59,16 +59,16 @@ class WalletServiceTest {
 
     @Test
     void testMakeTransactionToUserInsufficientBalance() {
-        usersService.createUser("sender2", "pass1");
-        usersService.createUser("receiver2", "pass2");
+        usersService.createUser("WalletServiceTest4", "pass1");
+        usersService.createUser("WalletServiceTest5", "pass2");
 
-        usersService.loginUser("sender2", "pass1");
+        usersService.loginUser("WalletServiceTest4", "pass1");
         walletService.setCurrentWallet();
 
         Wallet senderWallet = walletService.getCurrentWallet();
         senderWallet.setBalance(100);
 
-        Boolean result = walletService.makeTransactionToUser("receiver2", 500);
+        Boolean result = walletService.makeTransactionToUser("WalletServiceTest5", 500);
 
         assertFalse(result);
         assertEquals(100, senderWallet.getBalance());
@@ -76,14 +76,14 @@ class WalletServiceTest {
 
     @Test
     void testMakeTransactionToNonExistentUser() {
-        usersService.createUser("sender3", "pass");
-        usersService.loginUser("sender3", "pass");
+        usersService.createUser("WalletServiceTest6", "pass");
+        usersService.loginUser("WalletServiceTest6", "pass");
         walletService.setCurrentWallet();
 
         Wallet senderWallet = walletService.getCurrentWallet();
         senderWallet.setBalance(1000);
 
-        Boolean result = walletService.makeTransactionToUser("nonexistent", 500);
+        Boolean result = walletService.makeTransactionToUser("WalletServiceTest7", 500);
 
         assertNull(result);
     }

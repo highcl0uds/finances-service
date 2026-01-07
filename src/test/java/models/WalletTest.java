@@ -13,12 +13,12 @@ class WalletTest {
 
     @BeforeEach
     void setUp() {
-        wallet = new Wallet("testuser");
+        wallet = new Wallet("WalletTest1");
     }
 
     @Test
     void testWalletCreation() {
-        assertEquals("testuser", wallet.getOwner());
+        assertEquals("WalletTest1", wallet.getOwner());
         assertEquals(0, wallet.getBalance());
     }
 

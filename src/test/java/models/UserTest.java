@@ -9,23 +9,23 @@ class UserTest {
 
     @Test
     void testUserCreation() {
-        User user = new User("testuser", "hash123");
+        User user = new User("UserTest1", "hash123");
 
-        assertEquals("testuser", user.username());
+        assertEquals("UserTest1", user.username());
         assertEquals("hash123", user.passwordHash());
     }
 
     @Test
     void testUsernameImmutable() {
-        User user = new User("admin", "hashedpass");
+        User user = new User("UserTest2", "hashedpass");
 
-        assertEquals("admin", user.username());
+        assertEquals("UserTest2", user.username());
     }
 
     @Test
     void testPasswordHashRetrieval() {
         String expectedHash = "abcdef123456";
-        User user = new User("user1", expectedHash);
+        User user = new User("UserTest3", expectedHash);
 
         assertEquals(expectedHash, user.passwordHash());
     }

@@ -23,18 +23,14 @@ jobs:
     - name: Build with Maven
       run: mvn clean compile
 
-    - name: Run tests
-      run: mvn test
-
-    - name: Generate test report
-      if: always()
-      run: mvn surefire-report:report
+    - name: Run tests and generate test report
+      run: mvn test surefire-report:report
 
     - name: Package application
       run: mvn package -DskipTests
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: finances-service-jar
         path: target/*.jar

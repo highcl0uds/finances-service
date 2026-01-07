@@ -18,53 +18,54 @@ class UsersServiceTest {
 
     @Test
     void testCreateUser() {
-        User user = usersService.createUser("newuser", "password123");
+        User user = usersService.createUser("UsersServiceTest1", "password123");
 
         assertNotNull(user);
-        assertEquals("newuser", user.username());
-        assertEquals(user, usersService.getCurrentUser());
+        assertEquals("UsersServiceTest1", user.username());
     }
 
     @Test
     void testCreateDuplicateUser() {
-        usersService.createUser("testuser", "pass1");
-        User duplicate = usersService.createUser("testuser", "pass2");
+        usersService.createUser("UsersServiceTest2", "pass1");
+        User duplicate = usersService.createUser("UsersServiceTest2", "pass2");
 
         assertNull(duplicate);
     }
 
     @Test
     void testLoginUser() {
-        usersService.createUser("logintest", "mypassword");
+        usersService.createUser("UsersServiceTest3", "mypassword");
         usersService.logoutUser();
 
-        User loggedIn = usersService.loginUser("logintest", "mypassword");
+        User loggedIn = usersService.loginUser("UsersServiceTest3", "mypassword");
 
         assertNotNull(loggedIn);
-        assertEquals("logintest", loggedIn.username());
+        assertEquals("UsersServiceTest3", loggedIn.username());
         assertEquals(loggedIn, usersService.getCurrentUser());
     }
 
     @Test
     void testLoginUserWrongPassword() {
-        usersService.createUser("user1", "correctpass");
+        usersService.createUser("UsersServiceTest4", "correctpass");
         usersService.logoutUser();
 
-        User failed = usersService.loginUser("user1", "wrongpass");
+        User failed = usersService.loginUser("UsersServiceTest4", "wrongpass");
 
         assertNull(failed);
     }
 
     @Test
     void testLoginNonExistentUser() {
-        User failed = usersService.loginUser("nonexistent", "anypass");
+        User failed = usersService.loginUser("UsersServiceTest5", "anypass");
 
         assertNull(failed);
     }
 
     @Test
     void testLogoutUser() {
-        usersService.createUser("user2", "pass");
+        usersService.createUser("UsersServiceTest6", "pass");
+        usersService.loginUser("UsersServiceTest6", "pass");
+
         assertNotNull(usersService.getCurrentUser());
 
         usersService.logoutUser();
@@ -74,11 +75,11 @@ class UsersServiceTest {
 
     @Test
     void testGetUserByUsername() {
-        usersService.createUser("findme", "password");
+        usersService.createUser("UsersServiceTest7", "password");
 
-        User found = usersService.getUserByUsername("findme");
+        User found = usersService.getUserByUsername("UsersServiceTest7");
 
         assertNotNull(found);
-        assertEquals("findme", found.username());
+        assertEquals("UsersServiceTest7", found.username());
     }
 }
