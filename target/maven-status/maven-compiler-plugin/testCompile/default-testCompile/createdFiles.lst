@@ -1,0 +1,5 @@
+services\UsersServiceTest.class
+services\WalletServiceTest.class
+models\UserTest.class
+models\WalletTest.class
+models\CategoryTest.class
